@@ -10,8 +10,8 @@ const colorOptions = {
     yellow: { bg: "#faf4c0", img: "icons/Yellowumbrella.png", btnColor: "#fff741" }
 };
 
-let selectedUmbrella = ''; // Stores currently selected umbrella image
-let uploadedLogoSrc = '';  // Stores uploaded logo path (if any)
+let selectedUmbrella = ''; // Store selected umbrella image
+let uploadedLogoSrc = '';  // Store uploaded logo path
 
 // Handle color selection
 document.querySelectorAll('.color-btn').forEach(button => {
@@ -19,23 +19,20 @@ document.querySelectorAll('.color-btn').forEach(button => {
         const color = this.id; // Get the button ID (pink, blue, yellow)
         if (colorOptions[color]) {
             mainBackground.style.backgroundColor = colorOptions[color].bg;
+            selectedUmbrella = colorOptions[color].img;
             uploadBtn.style.backgroundColor = colorOptions[color].btnColor;
-
-            // Hide both the uploaded logo and umbrella before switching
+            
+            // Hide uploaded logo before changing the umbrella
             uploadedLogo.classList.add('hidden');
-            umbrellaImg.src = "icons/loader_icon.svg"; // Show loading icon
-
-            // Wait for transition effect, then show new umbrella and restore uploaded logo
+            umbrellaImg.src = selectedUmbrella; // Update umbrella image
+            
+            // Wait for the new umbrella image to load, then show logo again
             setTimeout(() => {
-                selectedUmbrella = colorOptions[color].img; // Update umbrella
-                umbrellaImg.src = selectedUmbrella;
-                // If user already uploaded a logo, reapply it
-                if (uploadedLogoSrc) {
+                if (uploadedLogoSrc) {  // If a logo was uploaded, re-show it
                     uploadedLogo.src = uploadedLogoSrc;
-                    // umbrellaImg.classList.add("loaded")
                     uploadedLogo.classList.remove('hidden');
                 }
-            }, 1000); // 1-second loading effect
+            }, 1000); // Small delay for smooth transition
         }
     });
 });
@@ -51,19 +48,22 @@ fileInput.addEventListener('change', function (event) {
     if (file && selectedUmbrella) {
         const reader = new FileReader();
 
-        // Show loading icon before processing the upload
+        // Start rotating loader and reset logo
         umbrellaImg.src = "icons/loader_icon.svg";
+        umbrellaImg.classList.add('loading');
         uploadedLogo.classList.add('hidden');
 
         reader.onload = function (e) {
             setTimeout(() => {
-                // Update umbrella image and stop loading
+                // Stop rotating, enlarge umbrella
+                umbrellaImg.classList.remove('loading');
+                umbrellaImg.classList.add('loaded');
                 umbrellaImg.src = selectedUmbrella;
 
                 // Store uploaded image source
                 uploadedLogoSrc = e.target.result;
-
-                // Show uploaded logo
+                
+                // Show uploaded logo inside umbrella
                 uploadedLogo.src = uploadedLogoSrc;
                 uploadedLogo.classList.remove('hidden');
             }, 1000); // 1-second delay for effect
