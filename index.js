@@ -10,13 +10,13 @@ const colorOptions = {
     yellow: { bg: "#faf4c0", img: "icons/Yellowumbrella.png", btnColor: "#fff741" }
 };
 
-let selectedUmbrella = ''; // Store selected umbrella image
-let uploadedLogoSrc = '';  // Store uploaded logo path
+let selectedUmbrella = ''; 
+let uploadedLogoSrc = '';  
 
 // Handle color selection
 document.querySelectorAll('.color-btn').forEach(button => {
     button.addEventListener('click', function () {
-        const color = this.id; // Get the button ID (pink, blue, yellow)
+        const color = this.id; 
         if (colorOptions[color]) {
             mainBackground.style.backgroundColor = colorOptions[color].bg;
             selectedUmbrella = colorOptions[color].img;
@@ -24,7 +24,7 @@ document.querySelectorAll('.color-btn').forEach(button => {
             
             // Hide uploaded logo before changing the umbrella
             uploadedLogo.classList.add('hidden');
-            umbrellaImg.src = selectedUmbrella; // Update umbrella image
+            umbrellaImg.src = selectedUmbrella; 
             if (uploadedLogoSrc) {
                 umbrellaImg.src = "icons/loader_icon.svg";
                 umbrellaImg.classList.remove('loaded');
@@ -33,8 +33,8 @@ document.querySelectorAll('.color-btn').forEach(button => {
             
             // Wait for the new umbrella image to load, then show logo again
             setTimeout(() => {
-                if (uploadedLogoSrc) {  // If a logo was uploaded, re-show it
-                    umbrellaImg.src = selectedUmbrella; // Update umbrella image
+                if (uploadedLogoSrc) {  
+                    umbrellaImg.src = selectedUmbrella; 
                     umbrellaImg.classList.remove('loading');
                     umbrellaImg.classList.add('loaded');
                     uploadedLogo.src = uploadedLogoSrc;
@@ -53,10 +53,16 @@ uploadBtn.addEventListener('click', function () {
 // Handle file upload
 fileInput.addEventListener('change', function (event) {
     const file = event.target.files[0];
+    // File size more then 5 MB
+    if(file.size>1 *1024*1024){
+        alert("File size can not be more then 5 mb");
+        return;
+    }
+
     if (file && selectedUmbrella) {
         const reader = new FileReader();
 
-        // Start rotating loader and reset logo
+        
         umbrellaImg.src = "icons/loader_icon.svg";
         umbrellaImg.classList.remove('loaded');
         umbrellaImg.classList.add('loading');
@@ -64,18 +70,14 @@ fileInput.addEventListener('change', function (event) {
 
         reader.onload = function (e) {
             setTimeout(() => {
-                // Stop rotating, enlarge umbrella
+                
                 umbrellaImg.classList.remove('loading');
                 umbrellaImg.classList.add('loaded');
                 umbrellaImg.src = selectedUmbrella;
-
-                // Store uploaded image source
                 uploadedLogoSrc = e.target.result;
-                
-                // Show uploaded logo inside umbrella
                 uploadedLogo.src = uploadedLogoSrc;
                 uploadedLogo.classList.remove('hidden');
-            }, 1000); // 1-second delay for effect
+            }, 1000); 
         };
 
         reader.readAsDataURL(file);

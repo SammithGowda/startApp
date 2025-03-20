@@ -13,15 +13,15 @@ body{
 .umbrella-container {
     display: flex;
     flex: 1;
-    justify-content: center; /* Center loader properly */
+    justify-content: center; 
     align-items: center;
-    height: 300px; /* Adjust height as needed */
+    height: 300px; 
     flex-direction: column;
 }
 
 .umbrella {
     position: relative;
-    width: 150px; /* Default size */
+    width: 150px; 
     height: 150px;
     transition: width 1s ease-in-out, height 1s ease-in-out, opacity 0.5s ease-in-out;
 }
@@ -35,21 +35,19 @@ body{
     transform: translate(-50%, -50%);
 }
 .loading {
-    /* width: 80px;  */
-    /* height: 80px; */
     animation: rotate 1s linear infinite;
 }
 
 
 .loaded {
-    width: 300px !important; /* Enlarge umbrella after upload */
+    width: 300px !important; 
     height: 300px !important;
     animation: fadeIn 0.8s ease-in-out forwards;
 }
 
 #uploaded-logo {
     position: relative;
-    bottom: 20px; /* Moves it down */
+    bottom: 20px;
     opacity: 1;
     margin-top: 125px;
     width: 100px;
@@ -78,10 +76,9 @@ body{
     justify-content: space-between;
     align-items: center;
     gap: 20px; 
-    /* border: 2px solid red; */
 }
 .new-wrapper {
-    width: 350px; /* Adjust width as needed */
+    width: 350px; 
     height: auto;
     padding: 20px;
     background-color: transparent;
@@ -104,6 +101,7 @@ body{
 .upload-btn {
     display: flex;
     align-items: center;
+    flex-direction: row; 
     justify-content: center;
     background-color: #007bff;
     color: white;
@@ -112,7 +110,7 @@ body{
     cursor: pointer;
     font-size: 16px;
     border-radius: 5px;
-    gap: 8px;
+    gap: 12px;
     width: 100%;
 }
 
@@ -121,6 +119,3 @@ body{
     height: 16px;
 }
 
-.upload-btn svg {
-    margin-right: 5px;
-}
