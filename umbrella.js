@@ -24,11 +24,19 @@ document.querySelectorAll('.color-btn').forEach(button => {
             
             // Hide uploaded logo before changing the umbrella
             uploadedLogo.classList.add('hidden');
-            umbrellaImg.src = selectedUmbrella; // Update umbrella image
+            // umbrellaImg.src = selectedUmbrella; // Update umbrella image
+            if (uploadedLogoSrc) {
+                umbrellaImg.src = "icons/loader_icon.svg";
+                umbrellaImg.classList.remove('loaded');
+                umbrellaImg.classList.add('loading');
+            }
             
             // Wait for the new umbrella image to load, then show logo again
             setTimeout(() => {
                 if (uploadedLogoSrc) {  // If a logo was uploaded, re-show it
+                    umbrellaImg.src = selectedUmbrella; // Update umbrella image
+                    umbrellaImg.classList.remove('loading');
+                    umbrellaImg.classList.add('loaded');
                     uploadedLogo.src = uploadedLogoSrc;
                     uploadedLogo.classList.remove('hidden');
                 }

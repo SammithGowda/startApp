@@ -27,19 +27,19 @@ body{
 }
 
 .umbrella img {
-    width: 10%;
+    width: 12%;
     height: auto;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
-
 .loading {
     animation: rotate 1s linear infinite;
-    width: 80px; /* Keep loader smaller */
-    height: 80px;
+    /* width: 80px; 
+    height: 80px; */
 }
+
 
 .loaded {
     width: 300px !important; /* Enlarge umbrella after upload */
