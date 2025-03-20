@@ -32,15 +32,15 @@ document.querySelectorAll('.color-btn').forEach(button => {
             }
             
             // Wait for the new umbrella image to load, then show logo again
+            if (uploadedLogoSrc) {  
             setTimeout(() => {
-                if (uploadedLogoSrc) {  
                     umbrellaImg.src = selectedUmbrella; 
                     umbrellaImg.classList.remove('loading');
                     umbrellaImg.classList.add('loaded');
                     uploadedLogo.src = uploadedLogoSrc;
                     uploadedLogo.classList.remove('hidden');
-                }
-            }, 1000); // Small delay for smooth transition
+                }, 2500); // Small delay for smooth transition
+            }
         }
     });
 });
@@ -54,7 +54,7 @@ uploadBtn.addEventListener('click', function () {
 fileInput.addEventListener('change', function (event) {
     const file = event.target.files[0];
     // File size more then 5 MB
-    if(file.size>1 *1024*1024){
+    if(file.size> 5 *1024*1024){
         alert("File size can not be more then 5 mb");
         return;
     }
