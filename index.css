@@ -26,8 +26,8 @@ body{
     transition: width 1s ease-in-out, height 1s ease-in-out, opacity 0.5s ease-in-out;
 }
 
-.umbrella img {
-    width: 12%;
+.umbrella img  {
+    width: 30%;
     height: auto;
     position: absolute;
     top: 50%;
@@ -35,9 +35,9 @@ body{
     transform: translate(-50%, -50%);
 }
 .loading {
+    /* width: 80px;  */
+    /* height: 80px; */
     animation: rotate 1s linear infinite;
-    /* width: 80px; 
-    height: 80px; */
 }
 
 

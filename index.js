@@ -24,7 +24,7 @@ document.querySelectorAll('.color-btn').forEach(button => {
             
             // Hide uploaded logo before changing the umbrella
             uploadedLogo.classList.add('hidden');
-            // umbrellaImg.src = selectedUmbrella; // Update umbrella image
+            umbrellaImg.src = selectedUmbrella; // Update umbrella image
             if (uploadedLogoSrc) {
                 umbrellaImg.src = "icons/loader_icon.svg";
                 umbrellaImg.classList.remove('loaded');
@@ -58,6 +58,7 @@ fileInput.addEventListener('change', function (event) {
 
         // Start rotating loader and reset logo
         umbrellaImg.src = "icons/loader_icon.svg";
+        umbrellaImg.classList.remove('loaded');
         umbrellaImg.classList.add('loading');
         uploadedLogo.classList.add('hidden');
 
