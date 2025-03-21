@@ -10,7 +10,7 @@ const colorOptions = {
     yellow: { bg: "#faf4c0", img: "icons/Yellowumbrella.png", btnColor: "#fff741" }
 };
 
-let selectedUmbrella = ''; 
+let selectedUmbrella = "icons/Blueumbrella.png"; //defalut blue for initial load
 let uploadedLogoSrc = '';  
 
 // Handle color selection
@@ -59,7 +59,7 @@ fileInput.addEventListener('change', function (event) {
         return;
     }
 
-    if (file && selectedUmbrella) {
+    if (file) {
         const reader = new FileReader();
 
         
@@ -70,12 +70,13 @@ fileInput.addEventListener('change', function (event) {
 
         reader.onload = function (e) {
             setTimeout(() => {
-                
+                console.log(selectedUmbrella)
                 umbrellaImg.classList.remove('loading');
                 umbrellaImg.classList.add('loaded');
                 umbrellaImg.src = selectedUmbrella;
                 uploadedLogoSrc = e.target.result;
                 uploadedLogo.src = uploadedLogoSrc;
+                // console.log(umbrellaImg)
                 uploadedLogo.classList.remove('hidden');
             }, 1000); 
         };
