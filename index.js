@@ -5,41 +5,48 @@ const uploadedLogo = document.getElementById('uploaded-logo');
 const mainBackground = document.getElementsByClassName('main-container')[0];
 
 const colorOptions = {
-    pink: { bg: "#f0f0f0", img: "icons/Pinkumbrella.png", btnColor: "pink" },
-    blue: { bg: "#d7f3fe", img: "icons/Blueumbrella.png", btnColor: "blue" },
+    pink: { bg: "#f0f0f0", img: "icons/Pinkumbrella.png", btnColor: "#FFC0CB" },
+    blue: { bg: "#d7f3fe", img: "icons/Blueumbrella.png", btnColor: "#007bff" },
     yellow: { bg: "#faf4c0", img: "icons/Yellowumbrella.png", btnColor: "#fff741" }
 };
 
 let selectedUmbrella = "icons/Blueumbrella.png"; //defalut blue for initial load
-let uploadedLogoSrc = '';  
+let uploadedLogoSrc = '';
 
 // Handle color selection
 document.querySelectorAll('.color-btn').forEach(button => {
     button.addEventListener('click', function () {
-        const color = this.id; 
+        const color = this.id;
         if (colorOptions[color]) {
+
             mainBackground.style.backgroundColor = colorOptions[color].bg;
-            selectedUmbrella = colorOptions[color].img;
             uploadBtn.style.backgroundColor = colorOptions[color].btnColor;
-            
-            // Hide uploaded logo before changing the umbrella
-            uploadedLogo.classList.add('hidden');
-            umbrellaImg.src = selectedUmbrella; 
+            // Wait for the new umbrella image to load, then show logo again
+
             if (uploadedLogoSrc) {
                 umbrellaImg.src = "icons/loader_icon.svg";
                 umbrellaImg.classList.remove('loaded');
                 umbrellaImg.classList.add('loading');
-            }
-            
-            // Wait for the new umbrella image to load, then show logo again
-            if (uploadedLogoSrc) {  
-            setTimeout(() => {
-                    umbrellaImg.src = selectedUmbrella; 
+                uploadedLogo.classList.add('hidden');
+                setTimeout(() => {
+                    umbrellaImg.src = colorOptions[color].img;
                     umbrellaImg.classList.remove('loading');
                     umbrellaImg.classList.add('loaded');
                     uploadedLogo.src = uploadedLogoSrc;
                     uploadedLogo.classList.remove('hidden');
                 }, 2500); // Small delay for smooth transition
+            } else {
+                umbrellaImg.src = "icons/loader_icon.svg";
+                umbrellaImg.classList.remove('loaded');
+                umbrellaImg.classList.add('loading');
+                setTimeout(() => {
+                    umbrellaImg.classList.remove('loading');
+                    umbrellaImg.classList.add('loaded');
+                    selectedUmbrella = colorOptions[color].img;
+                    // Hide uploaded logo before changing the umbrella
+                    uploadedLogo.classList.add('hidden');
+                    umbrellaImg.src = selectedUmbrella;
+                }, 1000);
             }
         }
     });
@@ -54,7 +61,7 @@ uploadBtn.addEventListener('click', function () {
 fileInput.addEventListener('change', function (event) {
     const file = event.target.files[0];
     // File size more then 5 MB
-    if(file.size> 5 *1024*1024){
+    if (file.size > 5 * 1024 * 1024) {
         alert("File size can not be more then 5 mb");
         return;
     }
@@ -62,7 +69,6 @@ fileInput.addEventListener('change', function (event) {
     if (file) {
         const reader = new FileReader();
 
-        
         umbrellaImg.src = "icons/loader_icon.svg";
         umbrellaImg.classList.remove('loaded');
         umbrellaImg.classList.add('loading');
@@ -76,13 +82,11 @@ fileInput.addEventListener('change', function (event) {
                 umbrellaImg.src = selectedUmbrella;
                 uploadedLogoSrc = e.target.result;
                 uploadedLogo.src = uploadedLogoSrc;
-                // console.log(umbrellaImg)
                 uploadedLogo.classList.remove('hidden');
-            }, 1000); 
+            }, 1000);
         };
-
         reader.readAsDataURL(file);
     } else {
-        alert('Please select an umbrella color first!');
+        alert('Something went wrong');
     }
 });
